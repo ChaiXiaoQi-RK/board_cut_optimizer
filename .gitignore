@@ -5,6 +5,7 @@ __pycache__/
 
 build/
 dist/
+release/
 
 board_gui_settings.json
 
@@ -15,4 +16,3 @@ env/
 *.log
 Thumbs.db
 Desktop.ini
-

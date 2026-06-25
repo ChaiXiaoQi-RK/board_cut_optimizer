@@ -2,31 +2,30 @@
 
 板优排是一个用于板材开料数据整理、厚度校验、自动排版、重量统计与排板图输出的桌面工具。
 
-当前版本：`V1.1.0`
+当前版本：`V1.2.1`
 
 ## 目录结构
 
-- `board_gui_app.py`
+- `board_gui_app.py`  
   桌面 GUI 主程序
-- `board_data_to_csv.py`
+- `board_data_to_csv.py`  
   原始文本转标准 CSV
-- `board_cut_optimizer.py`
+- `board_cut_optimizer.py`  
   排版计算、CSV 输出、PNG 输出
-- `board_gui_app.spec`
+- `board_gui_app.spec`  
   PyInstaller 打包配置
-- `assets/`
+- `assets/`  
   软件图标资源
-- `samples/`
+- `samples/`  
   示例输入文件
-- `release/`
+- `release/`  
   当前打包好的桌面版发布文件
-- `thickness_weight.csv`
+- `thickness_weight.csv`  
   厚度重量表示例
 
 ## 运行环境
 
-推荐 Python 3.11+。
-
+推荐 Python `3.11+`。  
 依赖见 `requirements.txt`。
 
 ## 开发运行
@@ -44,7 +43,14 @@ python -m PyInstaller --noconfirm --clean .\board_gui_app.spec
 打包输出默认在：
 
 ```text
+dist/board_gui_app/
+```
+
+发布目录会同步到：
+
+```text
 release/board_gui_app/
+release/板优排.zip
 ```
 
 ## 主要功能
@@ -54,5 +60,6 @@ release/board_gui_app/
 - 校验厚度是否存在于重量表
 - 计算整张数量、面积折算张数、总重量
 - 输出排板 PNG 长图
-- 生成桌面 GUI 工具
-
+- GUI 内预览生成后的排板图
+- 点击预览图打开放大窗口，并支持滚轮等比例缩放、左键拖拽平移
+- 右键菜单可将排板图复制到系统剪贴板
