@@ -44,7 +44,7 @@ python -m PyInstaller --noconfirm --clean .\board_gui_app.spec
 打包输出默认在：
 
 ```text
-dist/board_gui_app/
+release/board_gui_app/
 ```
 
 ## 主要功能
