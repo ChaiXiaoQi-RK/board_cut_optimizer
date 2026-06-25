@@ -1,65 +1,72 @@
 # 板优排 / board_cut_optimizer
 
-板优排是一个用于板材开料数据整理、厚度校验、自动排版、重量统计与排板图输出的桌面工具。
+板材开料排版、厚度校验、重量统计、CSV 留档和 PNG 预览的一套工具。
 
-当前版本：`V1.2.1`
+当前代码仓库已经重构为 Rust workspace，分成三部分：
 
-## 目录结构
+- `crates/board-core`：核心解析、排版、报表输出
+- `crates/board-cli`：命令行工具
+- `crates/board-desktop`：`iced` 桌面程序
 
-- `board_gui_app.py`  
-  桌面 GUI 主程序
-- `board_data_to_csv.py`  
-  原始文本转标准 CSV
-- `board_cut_optimizer.py`  
-  排版计算、CSV 输出、PNG 输出
-- `board_gui_app.spec`  
-  PyInstaller 打包配置
-- `assets/`  
-  软件图标资源
-- `samples/`  
-  示例输入文件
-- `release/`  
-  当前打包好的桌面版发布文件
-- `thickness_weight.csv`  
-  厚度重量表示例
+## 版本
 
-## 运行环境
-
-推荐 Python `3.11+`。  
-依赖见 `requirements.txt`。
-
-## 开发运行
-
-```powershell
-python .\board_gui_app.py
-```
-
-## 打包
-
-```powershell
-python -m PyInstaller --noconfirm --clean .\board_gui_app.spec
-```
-
-打包输出默认在：
-
-```text
-dist/board_gui_app/
-```
-
-发布目录会同步到：
-
-```text
-release/board_gui_app/
-release/板优排.zip
-```
+`V1.2.1`
 
 ## 主要功能
 
-- 原始开料文本转 CSV
-- 按厚度分组排版
-- 校验厚度是否存在于重量表
-- 计算整张数量、面积折算张数、总重量
-- 输出排板 PNG 长图
-- GUI 内预览生成后的排板图
-- 点击预览图打开放大窗口，并支持滚轮等比例缩放、左键拖拽平移
-- 右键菜单可将排板图复制到系统剪贴板
+- 支持原始文本转 CSV
+- 支持 CSV / XLSX 零切清单排版
+- 按厚度分组计算，不同厚度不混排
+- 自动识别旋转后更容易排下的方向
+- 输出整板用量、面积折算和总重量
+- 生成排版 PNG 预览图
+- 桌面端支持设置、关于、预览和复制图片
+
+## 目录规则
+
+留档目录仍然使用以下结构：
+
+```text
+留档根目录\年-月\月-日\文件名\文件名.csv
+留档根目录\年-月\月-日\文件名\文件名.png
+```
+
+## 输入格式
+
+原始文本支持常见写法，例如：
+
+```text
+500*300*18 4块
+800 400 18 2
+18厚 600x500 3块
+500x537x12mm 1
+```
+
+数量缺省时默认按 `1` 处理。
+
+## CLI
+
+### 原始文本转 CSV
+
+```powershell
+cargo run -p board-cli --bin board_data_to_csv -- --filename 测试文件2 --data "500*300*18 4块"
+```
+
+### 排版并输出 PNG
+
+```powershell
+cargo run -p board-cli --bin board_cut_optimizer -- --board-length 1220 --board-width 2440 --input .\samples\test_basic.csv
+```
+
+## 桌面程序
+
+```powershell
+cargo run -p board-desktop --bin board_gui_app
+```
+
+## 说明
+
+- `release/` 目录用于打包产物
+- `assets/board_gui_icon.png` 和 `assets/board_gui_icon.ico` 为软件图标
+- `thickness_weight.csv` 为厚度重量表
+
