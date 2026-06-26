@@ -11,7 +11,7 @@ use iced::widget::text_editor::{Action, Content};
 use iced::widget::{
     button, column, container, image as iced_image, row, scrollable, text, text_editor, text_input,
 };
-use iced::{Application, Command, Element, Font, Length, Settings, Theme, executor};
+use iced::{Alignment, Application, Command, Element, Font, Length, Settings, Theme, executor};
 use image as image_crate;
 use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
@@ -25,10 +25,6 @@ const AUTHOR: &str = "有钱任性买辣条";
 const DEFAULT_BOARD_LENGTH: &str = "1220";
 const DEFAULT_BOARD_WIDTH: &str = "2440";
 const DEFAULT_ARCHIVE_ROOT: &str = r"D:\Works\电商\海洋板\海洋板订单留档";
-
-fn icon_handle() -> Handle {
-    Handle::from_memory(include_bytes!("../../../assets/board_gui_icon.png").to_vec())
-}
 
 fn load_cjk_fonts() -> Vec<Cow<'static, [u8]>> {
     const CANDIDATES: &[&str] = &[
@@ -318,28 +314,16 @@ impl BoardGuiApp {
     }
 
     fn build_main_view(&self) -> Element<'_, Message> {
-        let header = container(
+        let top_menu = container(
             row![
-                iced_image::Image::new(icon_handle())
-                    .width(Length::Fixed(60.0))
-                    .height(Length::Fixed(60.0)),
-                column![
-                    text(CHINESE_NAME).size(34),
-                    text(format!("{}  {}  {}", APP_NAME, VERSION, AUTHOR)).size(18),
-                ]
-                .spacing(4)
-                .width(Length::Fill),
-                row![
-                    button(text("设置")).on_press(Message::OpenSettings),
-                    button(text("其它")).on_press(Message::OpenAbout),
-                    button(text("清空")).on_press(Message::ClearRaw),
-                ]
-                .spacing(10),
+                button(text("设置")).on_press(Message::OpenSettings),
+                button(text("其它")).on_press(Message::OpenAbout),
+                button(text("清空")).on_press(Message::ClearRaw),
             ]
-            .spacing(16)
-            .align_items(iced::Alignment::Center),
+            .spacing(10)
+            .align_items(Alignment::Center),
         )
-        .padding(18)
+        .padding([0, 0, 8, 0])
         .width(Length::Fill);
 
         let summary_cards = row![
@@ -501,7 +485,7 @@ impl BoardGuiApp {
         .width(Length::Fill);
 
         let content = column![
-            header,
+            top_menu,
             summary_cards,
             row![
                 container(settings_block)
