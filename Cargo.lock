@@ -576,16 +576,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "board-cli"
+name = "board_cut_optimizer_cli"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "board-core",
+ "board_cut_optimizer_core",
  "clap",
 ]
 
 [[package]]
-name = "board-core"
+name = "board_cut_optimizer_core"
 version = "0.1.0"
 dependencies = [
  "ab_glyph",
@@ -602,12 +602,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "board-desktop"
+name = "board_cut_optimizer_desktop"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "arboard",
- "board-core",
+ "board_cut_optimizer_core",
  "iced",
  "image 0.25.10",
  "once_cell",

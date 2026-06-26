@@ -1,0 +1,19 @@
+[package]
+name = "board_cut_optimizer_cli"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+autobins = false
+
+[dependencies]
+anyhow = { workspace = true }
+clap = { workspace = true }
+board_cut_optimizer_core = { path = "../board_cut_optimizer_core", package = "board_cut_optimizer_core" }
+
+[[bin]]
+name = "board_cut_optimizer_data_to_csv"
+path = "src/bin/board_cut_optimizer_data_to_csv.rs"
+
+[[bin]]
+name = "board_cut_optimizer_layout"
+path = "src/bin/board_cut_optimizer_layout.rs"

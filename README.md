@@ -4,9 +4,9 @@
 
 当前代码仓库已经重构为 Rust workspace，分成三部分：
 
-- `crates/board-core`：核心解析、排版、报表输出
-- `crates/board-cli`：命令行工具
-- `crates/board-desktop`：`iced` 桌面程序
+- `crates/board_cut_optimizer_core`：核心解析、排版、报表输出
+- `crates/board_cut_optimizer_cli`：命令行工具
+- `crates/board_cut_optimizer_desktop`：`iced` 桌面程序
 
 ## 版本
 
@@ -49,24 +49,25 @@
 ### 原始文本转 CSV
 
 ```powershell
-cargo run -p board-cli --bin board_data_to_csv -- --filename 测试文件2 --data "500*300*18 4块"
+cargo run -p board_cut_optimizer_cli --bin board_cut_optimizer_data_to_csv -- --filename 测试文件2 --data "500*300*18 4块"
 ```
 
 ### 排版并输出 PNG
 
 ```powershell
-cargo run -p board-cli --bin board_cut_optimizer -- --board-length 1220 --board-width 2440 --input .\samples\test_basic.csv
+cargo run -p board_cut_optimizer_cli --bin board_cut_optimizer_layout -- --board-length 1220 --board-width 2440 --input .\samples\test_basic.csv
 ```
 
 ## 桌面程序
 
 ```powershell
-cargo run -p board-desktop --bin board_gui_app
+cargo run -p board_cut_optimizer_desktop --bin board_cut_optimizer
 ```
 
 ## 说明
 
-- `release/` 目录用于打包产物
+- `release/` 目录只保留最终 exe
+- 打包脚本: `.\package_release.ps1`
+- 生成文件示例: `release\优板排 V1.2.1.exe`
 - `assets/board_gui_icon.png` 和 `assets/board_gui_icon.ico` 为软件图标
 - `thickness_weight.csv` 为厚度重量表
-

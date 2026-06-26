@@ -1,8 +1,8 @@
 [workspace]
 members = [
-    "crates/board-core",
-    "crates/board-cli",
-    "crates/board-desktop",
+    "crates/board_cut_optimizer_core",
+    "crates/board_cut_optimizer_cli",
+    "crates/board_cut_optimizer_desktop",
 ]
 resolver = "2"
 
